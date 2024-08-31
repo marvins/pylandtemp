@@ -4,7 +4,7 @@ from .temperature import default_algorithms as temperature_algorithms
 from .emissivity import default_algorithms as emissivity_algorithms
 from .temperature import BrightnessTemperatureLandsat
 from .runner import Runner
-from .utils import compute_ndvi
+from .utils import compute_ndvi, generate_mask
 from .exceptions import *
 
 
@@ -19,6 +19,8 @@ def split_window(
     lst_method: str,
     emissivity_method: str,
     unit: str = "kelvin",
+    ndvi_image = None,
+    mask = None,
 ) -> np.ndarray:
     """Provides an interface to compute land surface temperature
         from landsat 8 imagery using split window method
@@ -45,6 +47,10 @@ def split_window(
 
         unit (str, optional): 'kelvin' or 'celcius'. Defaults to 'kelvin'.
 
+        ndvi_image (np.ndarray): Pre-computed NDVI image.  If not provided, NDVI will be computed internally.
+
+        mask (np.ndarray[bool]): output is NaN where Mask == True.  If not provided, a mask will be computed internally.
+
     Returns:
         np.ndarray: Land surface temperature (numpy array)
     """
@@ -61,8 +67,12 @@ def split_window(
             f"Shapes of input images should be equal: {landsat_band_10.shape}, {landsat_band_5.shape}, {landsat_band_4.shape}"
         )
 
-    mask = landsat_band_10 == 0
-    ndvi_image = ndvi(landsat_band_5, landsat_band_4, mask)
+    #  Optionally generate a mask
+    if mask is None:
+        mask = generate_mask( landsat_band_10 )
+
+    if ndvi_image is None:
+        ndvi_image = ndvi(landsat_band_5, landsat_band_4, mask)
 
     brightness_temp_10, brightness_temp_11 = brightness_temperature(
         landsat_band_10, landsat_band_11=landsat_band_11, mask=mask

@@ -120,6 +120,7 @@ Open a Pull Request
 
 
 ## What's new
+- ***August 2024***: Updated parameters to allow passing pre-computed inputs to pylandtemp methods.  Helpful when mixing Landsat TIRS with other imagery such as Planet.
 - ***September 2022***: Started to work on intergrating with with google Earth Engine to pull data directly and automate the workflow.
 - ***July 2022***: Poster presentation of this project at Scipy 2022. Link [here](https://hub-binder.mybinder.ovh/user/pylandtemp-pylandtemp-45pztpvy/doc/workspaces/auto-w/tree/tutorials)
 - ***December 2021***: version 0.0.1-alpha.1 pre-release version is out on PyPI. Find it [here](https://pypi.org/project/pylandtemp/) 

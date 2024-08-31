@@ -6,7 +6,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="pylandtemp",
-    version="0.0.1-alpha.1",
+    version="0.0.1-alpha.2",
     description="Compute land surface temperature(LST) from Landsat-8 data",
     author="Oladimeji Mudele",
     license="Apache",
